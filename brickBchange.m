@@ -166,31 +166,43 @@ if strcmp(mode,'make')
           dNdN = [dNdN dNdNi];
           dNdZ = [dNdZ dNdZi];
       end
-
       J = [dNdX; dNdN; dNdZ]*[x y z];
       J_inverse = J^-1;
 
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Determine B Matrix
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      B = [];
-      n = 1;
-      for n = 1:numofnodes
-          
-            Resultant = J_inverse*[dNdX(n); dNdN(n); dNdZ(n)];
-            dNdx(n) =Resultant(1);
-            dNdy(n) =Resultant(2);
-            dNdz(n) =Resultant(3);
-            
-           Bi = [dNdx(n)  0              0;
-                 0        dNdy(n)        0;
-                 0        0        dNdz(n);
-                 dNdy(n)  dNdx(n)        0;
-                 0        dNdz(n)  dNdy(n);
-                 dNdz(n)  0        dNdx(n)];
-            B = [B Bi];
-      end
-      
+     Alpha=zeros(6,9);
+     Alpha(1,1)=1;Alpha(2,4)=1;Alpha(3,7)=1;Alpha(4,2)=1;Alpha(4,4)=1;Alpha(5,6)=1;Alpha(5,8)=1;Alpha(6,3)=1;Alpha(6,7)=1;
+     zero=zeros(3,3);
+     Beta=[J_inverse zero zero;zero J_inverse zero;zero zero J_inverse];
+     Gamma=zeros(9,24);
+     Gamma(1,1)=dNdX(1);Gamma(4,2)=dNdX(1);Gamma(7,3)=dNdX(1);
+     Gamma(1,4)=dNdX(2);Gamma(4,5)=dNdX(2);Gamma(7,6)=dNdX(2);
+     Gamma(1,7)=dNdX(3);Gamma(4,8)=dNdX(3);Gamma(7,9)=dNdX(3);
+     Gamma(1,10)=dNdX(4);Gamma(4,11)=dNdX(4);Gamma(7,12)=dNdX(4);
+     Gamma(1,13)=dNdX(5);Gamma(4,14)=dNdX(5);Gamma(7,15)=dNdX(5);
+     Gamma(1,16)=dNdX(6);Gamma(4,17)=dNdX(6);Gamma(7,18)=dNdX(6);
+     Gamma(1,19)=dNdX(7);Gamma(4,20)=dNdX(7);Gamma(7,21)=dNdX(7);
+     Gamma(1,22)=dNdX(8);Gamma(4,23)=dNdX(8);Gamma(7,24)=dNdX(8);
+     Gamma(2,1)=dNdN(1);Gamma(5,2)=dNdN(1);Gamma(8,3)=dNdN(1);
+     Gamma(2,4)=dNdN(2);Gamma(5,5)=dNdN(2);Gamma(8,6)=dNdN(2);
+     Gamma(2,7)=dNdN(3);Gamma(5,8)=dNdN(3);Gamma(8,9)=dNdN(3);
+     Gamma(2,10)=dNdN(4);Gamma(5,11)=dNdN(4);Gamma(8,12)=dNdN(4);
+     Gamma(2,13)=dNdN(5);Gamma(5,14)=dNdN(5);Gamma(8,15)=dNdN(5);
+     Gamma(2,16)=dNdN(6);Gamma(5,17)=dNdN(6);Gamma(8,18)=dNdN(6);
+     Gamma(2,19)=dNdN(7);Gamma(5,20)=dNdN(7);Gamma(8,21)=dNdN(7);
+     Gamma(2,22)=dNdN(8);Gamma(5,23)=dNdN(8);Gamma(8,24)=dNdN(8);
+     Gamma(3,1)=dNdZ(1);Gamma(6,2)=dNdZ(1);Gamma(9,3)=dNdZ(1);
+     Gamma(3,4)=dNdZ(2);Gamma(6,5)=dNdZ(2);Gamma(9,6)=dNdZ(2);
+     Gamma(3,7)=dNdZ(3);Gamma(6,8)=dNdZ(3);Gamma(9,9)=dNdZ(3);
+     Gamma(3,10)=dNdZ(4);Gamma(6,11)=dNdZ(4);Gamma(9,12)=dNdZ(4);
+     Gamma(3,13)=dNdZ(5);Gamma(6,14)=dNdZ(5);Gamma(9,15)=dNdZ(5);
+     Gamma(3,16)=dNdZ(6);Gamma(6,17)=dNdZ(6);Gamma(9,18)=dNdZ(6);
+     Gamma(3,19)=dNdZ(7);Gamma(6,20)=dNdZ(7);Gamma(9,21)=dNdZ(7);
+     Gamma(3,22)=dNdZ(8);Gamma(6,23)=dNdZ(8);Gamma(9,24)=dNdZ(8);
+     B=Alpha*Beta*Gamma;
+     
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Stiffness
       Bt=B';
@@ -201,9 +213,8 @@ if strcmp(mode,'make')
       Nt=N';
       Mi = bgpw(i)*Nt*rho*N*det(J);
       Me = Me+Mi;
-  
   end
-
+  
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % Assembling matrices into global matrices
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

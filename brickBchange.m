@@ -1,4 +1,4 @@
-function out=brick(mode,b,c,d,e)
+function out=brickBchange(mode,b,c,d,e)
   
 % brick does as listed below.  
 % brick properties (bprops) are in the order

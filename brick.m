@@ -253,8 +253,9 @@ if strcmp(mode,'make')
       %%%Add 9 rows & Columns using B matrix derived from nodeless DOF's
       Bdt = Bd';
       Ki = bgpw(i)*Bdt*Ematrix*Bd*det(J_mid);
-      Ke(25:33,25:33) = Ke(25:33,25:33)+Ki(25:33,25:33);% final 33by33 matrix
-            
+      Ke(25:33,1:24) = Ke(25:33,1:24)+Ki(25:33,1:24); %Adding 9 Rows
+      Ke(1:33,25:33) = Ke(1:33,25:33)+Ki(1:33,25:33); %Adding 9 Columns
+      
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Determine Mass Matrix
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

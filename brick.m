@@ -276,6 +276,17 @@ if strcmp(mode,'make')
   
   %APPLY GUYAN REDUCTION
   
+  if size(Ke,1)>24 || size(Ke,2)>24
+    K11=Ke(1:24,1:24);
+    K12=Ke(1:24,25:33);
+    K21=Ke(25:33,1:24);
+    K22=Ke(25:33,25:33);
+    K22=K22^-1;
+    Kr=K11-(K12*K22*K21);
+else
+    Kr=Ke;
+  end
+  
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   
@@ -296,8 +307,8 @@ if strcmp(mode,'make')
 
 
 % Me
-% Ke
-  K(indices,indices)=K(indices,indices)+Ke;
+ Kr
+  K(indices,indices)=K(indices,indices)+Kr;
   M(indices,indices)=M(indices,indices)+Me;
 
   % At this point we also know how to draw the element (what lines

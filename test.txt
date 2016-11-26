@@ -46,5 +46,6 @@ plotdeformed
 Xg=nonzeros(X);
 save('GlobalDeflections.mat','Xg');
 save('Nodes.mat','nodes');
+X
 
 end

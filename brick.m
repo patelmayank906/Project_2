@@ -267,13 +267,6 @@ if strcmp(mode,'make')
   end
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
-  %REMOVE ZEROS
-  
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
   %APPLY GUYAN REDUCTION
   
   if size(Ke,1)>24 || size(Ke,2)>24
@@ -283,12 +276,9 @@ if strcmp(mode,'make')
     K22=Ke(25:33,25:33);
     K22=K22^-1;
     Kr=K11-(K12*K22*K21);
-else
+  else
     Kr=Ke;
   end
-  
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % Assembling matrices into global matrices

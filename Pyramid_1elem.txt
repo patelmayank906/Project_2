@@ -13,14 +13,14 @@ brick elements
 nodes
 % I can include comment lines
 % node num, x y z, Node number isn't ever stored in nodes matrix
-1   -37e-9    -37e-9    0
-2    37e-9    -37e-9    0
-3    37e-9     37e-9    0
-4   -37e-9     37e-9    0
-5   -5e-9     -5e-9   190e-9
-6    5e-9     -5e-9   190e-9
-7    5e-9      5e-9   190e-9
-8   -5e-9      5e-9   190e-9
+1   -37*nm    -37*nm    0
+2    37*nm    -37*nm   0
+3    37*nm     37*nm    0
+4   -37*nm     37*nm    0
+5   -5*nm     -5*nm   190*nm
+6    5*nm     -5*nm   190*nm
+7    5*nm      5*nm   190*nm
+8   -5*nm      5*nm  190*nm
 
 
 points
@@ -34,10 +34,10 @@ fix clamp
 
 
 load 
-5  1 10/4e-9
-6  1 10/4e-9
-7  1 10/4e-9
-8  1 10/4e-9
+5  1 2.5e-9
+6  1 2.5e-9
+7  1 2.5e-9
+8  1 2.5e-9
 
 actions
 staticanalysis

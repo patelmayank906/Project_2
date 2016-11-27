@@ -34,10 +34,10 @@ fix clamp
 
 
 load 
-5  1 10e-9
-6  1 10e-9
-7  1 10e-9
-8  1 10e-9
+5  1 10/4e-9
+6  1 10/4e-9
+7  1 10/4e-9
+8  1 10/4e-9
 
 actions
 staticanalysis

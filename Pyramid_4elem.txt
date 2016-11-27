@@ -16,26 +16,26 @@ brick elements
 nodes
 % I can include comment lines
 % node num, x y z, Node number isn't ever stored in nodes matrix
-1    -37e-9    -37e-9    0
-2     37e-9    -37e-9    0
-3     37e-9     37e-9    0
-4    -37e-9     37e-9    0
-5    -29e-9    -29e-9    47.5e-9
-6     29e-9    -29e-9    47.5e-9
-7     29e-9     29e-9    47.5e-9
-8    -29e-9     29e-9    47.5e-9
-9    -21e-9    -21e-9    95e-9
-10    21e-9    -21e-9    95e-9
-11    21e-9     21e-9    95e-9
-12   -21e-9     21e-9    95e-9
-13   -13e-9    -13e-9    142.5e-9
-14    13e-9    -13e-9    142.5e-9
-15    13e-9     13e-9    142.5e-9
-16   -13e-9     13e-9    142.5e-9
-17   -5e-9     -5e-9     190e-9
-18    5e-9     -5e-9     190e-9
-19    5e-9      5e-9     190e-9
-20   -5e-9      5e-9     190e-9
+1    -37*nm    -37*nm    0
+2     37*nm    -37*nm    0
+3     37*nm     37*nm    0
+4    -37*nm     37*nm    0
+5    -29*nm    -29*nm    47.5*nm
+6     29*nm    -29*nm    47.5*nm
+7     29*nm     29*nm    47.5*nm
+8    -29*nm     29*nm    47.5*nm
+9    -21*nm    -21*nm    95*nm
+10    21*nm    -21*nm    95*nm
+11    21*nm     21*nm    95*nm
+12   -21*nm     21*nm    95*nm
+13   -13*nm    -13*nm    142.5*nm
+14    13*nm    -13*nm    142.5*nm
+15    13*nm     13*nm    142.5*nm
+16   -13*nm     13*nm    142.5*nm
+17   -5*nm    - 5*nm     190*nm
+18    5*nm     -5*nm     190*nm
+19    5*nm      5*nm     190*nm
+20   -5*nm      5*nm     190*nm
  
 points
 1 1 1 1
@@ -48,10 +48,10 @@ fix clamp
 
 
 load 
-17  1 -10/4e-9
-18  1 -10/4e-9
-19  1 -10/4e-9
-20  1 -10/4e-9
+17  1 -2.5e-9
+18  1 -2.5e-9
+19  1 -2.5e-9
+20  1 -2.5e-9
 
 actions
 staticanalysis

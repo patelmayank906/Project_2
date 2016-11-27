@@ -1,4 +1,4 @@
-%variables
+%variables 
 %All of these actions are not the most efficient for this problem.
 
 element properties
@@ -14,16 +14,16 @@ brick elements
 nodes
 % I can include comment lines
 % node num, x y z, Node number isn't ever stored in nodes matrix
-1    -37e-9    -37e-9    0
-2     37e-9    -37e-9    0
-3     37e-9     37e-9    0
-4    -37e-9     37e-9    0
-5    -22e-9    -22e-9   95e-9
-6     22e-9    -22e-9   95e-9
-7     22e-9     22e-9   95e-9
-8    -22e-9     22e-9   95e-9
-9    -5e-9     -5e-9    190e-9
-10    5e-9     -5e-9    190e-9
+1    -37*nm    -37*nm    0
+2     37*nm    -37*nm    0
+3     37*nm     37*nm    0
+4    -37*nm     37*nm    0
+5    -22*nm    -22*nm   95*nm
+6     22*nm    -22*nm   95*nm
+7     22*nm     22*nm   95*nm
+8    -22*nm     22*nm   95*nm
+9    -5*nm    - 5*nm    190*nm
+10    5*nm     -5*nm   190*nm
 11    5e-9      5e-9    190e-9
 12   -5e-9      5e-9    190e-9
 
@@ -38,10 +38,10 @@ fix clamp
 
 
 load 
-9  1 -10/4e-9
-10 1 -10/4e-9
-11 1 -10/4e-9
-12 1 -10/4e-9
+9  1 -2.5e-9
+10 1 -2.5e-9
+11 1 -2.5e-9
+12 1 -2.5e-9
 
 actions
 staticanalysis

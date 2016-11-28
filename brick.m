@@ -277,7 +277,7 @@ if strcmp(mode,'make')
     K22=K22^-1;
     Kr=K11-(K12*K22*K21);
   else
-    Kr=Ke;
+     Kr=Ke;
   end
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -295,9 +295,6 @@ if strcmp(mode,'make')
   indices=[bn1*6+(-5:-3) bn2*6+(-5:-3) bn3*6+(-5:-3) bn4*6+(-5:-3)...
            bn5*6+(-5:-3) bn6*6+(-5:-3) bn7*6+(-5:-3) bn8*6+(-5:-3)] ;
 
-
-% Me
- Kr
   K(indices,indices)=K(indices,indices)+Kr;
   M(indices,indices)=M(indices,indices)+Me;
 

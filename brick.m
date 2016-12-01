@@ -216,7 +216,7 @@ if strcmp(mode,'make')
       dNdN_nodeless = -2*Eta; 
       dNdZ_nodeless = -2*Z;
       
-      Gnd = J_mid\[dNdX_nodeless      0                          0;
+      Gnd = J\[dNdX_nodeless      0                          0;
                0                  dNdN_nodeless              0;
                0                  0              dNdZ_nodeless];
       

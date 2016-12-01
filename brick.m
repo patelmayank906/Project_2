@@ -159,17 +159,13 @@ if strcmp(mode,'make')
       dNdZ = [];
       n = 1;
       for n = 1:numofnodes
-          dNdXi = 0.125*Xi(n)*(1+Eta*Etai(n))*(1+Z*Zi(n));
-          dNdNi = 0.125*Etai(n)*(1+Xe*Xi(n))*(1+Z*Zi(n));
-          dNdZi = 0.125*Zi(n)*(1+Xe*Xi(n))*(1+Eta*Etai(n));
-          dNdX = [dNdX dNdXi];
-          dNdN = [dNdN dNdNi];
-          dNdZ = [dNdZ dNdZi];
+          dNdX(n) = 0.125*Xi(n)*(1+Eta*Etai(n))*(1+Z*Zi(n));
+          dNdN(n) = 0.125*Etai(n)*(1+Xe*Xi(n))*(1+Z*Zi(n));
+          dNdZ(n) = 0.125*Zi(n)*(1+Xe*Xi(n))*(1+Eta*Etai(n));
       end
 
       J = [dNdX; dNdN; dNdZ]*[x y z];
-      J_inverse = J^-1;
-      
+    
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Determine J Matrix at Middle of Brick Element
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -183,16 +179,12 @@ if strcmp(mode,'make')
       
       n = 1;
       for n = 1:numofnodes
-          dNdXi_mid = 0.125*Xi(n)*(1+Eta_mid*Etai(n))*(1+Zeta_mid*Zi(n));
-          dNdNi_mid = 0.125*Etai(n)*(1+Xe_mid*Xi(n))*(1+Zeta_mid*Zi(n));
-          dNdZi_mid = 0.125*Zi(n)*(1+Xe_mid*Xi(n))*(1+Eta_mid*Etai(n));
-          dNdX_mid = [dNdX_mid dNdXi_mid];
-          dNdN_mid = [dNdN_mid dNdNi_mid];
-          dNdZ_mid = [dNdZ_mid dNdZi_mid];
+          dNdX_mid(n) = 0.125*Xi(n)*(1+Eta_mid*Etai(n))*(1+Zeta_mid*Zi(n));
+          dNdN_mid(n) = 0.125*Etai(n)*(1+Xe_mid*Xi(n))*(1+Zeta_mid*Zi(n));
+          dNdZ_mid(n) = 0.125*Zi(n)*(1+Xe_mid*Xi(n))*(1+Eta_mid*Etai(n));
       end
 
       J_mid = [dNdX_mid; dNdN_mid; dNdZ_mid]*[x y z];
-      J_mid_inverse = J_mid^-1;
 
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Determine B Matrix
@@ -201,7 +193,7 @@ if strcmp(mode,'make')
       n = 1;
       for n = 1:numofnodes
           
-            Global_coord_der = J_inverse*[dNdX(n); dNdN(n); dNdZ(n)];
+            Global_coord_der = J\[dNdX(n); dNdN(n); dNdZ(n)];
             dNdx(n) = Global_coord_der(1);
             dNdy(n) = Global_coord_der(2);
             dNdz(n) = Global_coord_der(3);
@@ -224,9 +216,9 @@ if strcmp(mode,'make')
       dNdN_nodeless = -2*Eta; 
       dNdZ_nodeless = -2*Z;
       
-      Gnd = J_inverse*[dNdX_nodeless      0                          0;
-                       0                  dNdN_nodeless              0;
-                       0                  0              dNdZ_nodeless];
+      Gnd = J_mid\[dNdX_nodeless      0                          0;
+               0                  dNdN_nodeless              0;
+               0                  0              dNdZ_nodeless];
       
       n = 1;
       for n = 1:3 
@@ -279,7 +271,7 @@ if strcmp(mode,'make')
   else
      Kr=Ke;
   end
-  
+
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % Assembling matrices into global matrices
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -297,7 +289,8 @@ if strcmp(mode,'make')
 
   K(indices,indices)=K(indices,indices)+Kr;
   M(indices,indices)=M(indices,indices)+Me;
-
+lam=eigs(K,24)
+  lam=eigs(Ke,24)
   % At this point we also know how to draw the element (what lines
   % and surfaces exist). For the brick element. Just add the pair of node 
   % numbers to the lines array and that line will always be drawn.

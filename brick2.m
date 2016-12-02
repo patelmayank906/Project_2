@@ -167,11 +167,6 @@ if strcmp(mode,'make')
       J = [dNdX; dNdN; dNdZ]*[x y z];
     
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      %Determine J Matrix at Middle of Brick Element
-      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Determine B Matrix
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       B = [];
@@ -192,31 +187,6 @@ if strcmp(mode,'make')
             B = [B Bi];
       end
       
-      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      %Make corrections to B matrix w/ Nodeless DOF's
-      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      Bd = B; %Store B matrix for latter use 
-
-      dNdX_nodeless = -2*Xe; 
-      dNdN_nodeless = -2*Eta; 
-      dNdZ_nodeless = -2*Z;
-      
-      Gnd = J\[dNdX_nodeless      0                          0;
-               0                  dNdN_nodeless              0;
-               0                  0              dNdZ_nodeless];
-      
-      n = 1;
-      for n = 1:3 
-          
-        Ba = [Gnd(n,1)   0                0;
-              0          Gnd(n,2)         0;
-              0          0         Gnd(n,3);
-              Gnd(n,2)   Gnd(n,1)         0;
-              0          Gnd(n,3)  Gnd(n,2);
-              Gnd(n,3)   0         Gnd(n,1)];
-
-        Bd = [Bd Ba];
-      end
 
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Determine Stiffness Matrix
@@ -227,12 +197,6 @@ if strcmp(mode,'make')
       Ki = bgpw(i)*Bt*Ematrix*B*det(J);
       Ke(1:24,1:24) = Ke(1:24,1:24)+Ki(1:24,1:24);%Establish 24x24 K matrix
       
-      %%%Add 9 rows & Columns using B matrix derived from nodeless DOF's
-      Bdt = Bd';
-%       Ki = bgpw(i)*Bdt*Ematrix*Bd*det(J_mid);
-%       Ke(25:33,1:24) = Ke(25:33,1:24)+Ki(25:33,1:24); %Adding 9 Rows
-%       Ke(1:33,25:33) = Ke(1:33,25:33)+Ki(1:33,25:33); %Adding 9 Columns
-      
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       %Determine Mass Matrix
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -242,20 +206,6 @@ if strcmp(mode,'make')
       Me = Me+Mi;
   
   end
-
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  %APPLY GUYAN REDUCTION
-  
-%   if size(Ke,1)>24 || size(Ke,2)>24
-%     K11=Ke(1:24,1:24);
-%     K12=Ke(1:24,25:33);
-%     K21=Ke(25:33,1:24);
-%     K22=Ke(25:33,25:33);
-%     K22=K22^-1;
-%     Kr=K11-(K12*K22*K21);
-%   else
-     Kr=Ke;
-%   end
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % Assembling matrices into global matrices
@@ -271,11 +221,10 @@ if strcmp(mode,'make')
   bn8=bnodes(8);
   indices=[bn1*6+(-5:-3) bn2*6+(-5:-3) bn3*6+(-5:-3) bn4*6+(-5:-3)...
            bn5*6+(-5:-3) bn6*6+(-5:-3) bn7*6+(-5:-3) bn8*6+(-5:-3)] ;
-
+  Kr=Ke;
   K(indices,indices)=K(indices,indices)+Ke;
   M(indices,indices)=M(indices,indices)+Me;
-lam=eigs(K,24)
-  lam=eigs(Ke,24)
+
   % At this point we also know how to draw the element (what lines
   % and surfaces exist). For the brick element. Just add the pair of node 
   % numbers to the lines array and that line will always be drawn.

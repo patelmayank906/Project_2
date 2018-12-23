@@ -1,4 +1,4 @@
-### Repository contains
+### Repository contains:
 
 - Working 8 noded brick element with shear locking written in Matlab for Modeling and Analysis.
 - An input file that has an original Wing structure modelled using Brick Elements
@@ -7,8 +7,7 @@
 ![display-img](imgs/Actualwing.png)
 
 
-### FE wing modelled using Brick elements
-
+### FE wing modelled using Brick elements:
 ![display-img](imgs/Brickmodelmode1.jpg)
 
 
@@ -20,7 +19,7 @@
 [Modal Analysis and Modal Assurance Criterion on the same wing structure ](https://github.com/sainag2473/ModalAnalysis_MAC_and_Modalupdating)
 
 
-### Required Toolbox to run the element
+### Required Toolbox to run the element:
 
 [WFEM](https://github.com/josephcslater/WFEM) : by Dr. Joseph Slater
 
